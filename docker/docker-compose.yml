@@ -1,4 +1,4 @@
-name: anythingllm
+version: "3.8"
 
 networks:
   anything-llm:
@@ -8,8 +8,8 @@ services:
   anything-llm:
     container_name: anythingllm
     build:
-      context: ../.
-      dockerfile: ./docker/Dockerfile
+      context: .
+      dockerfile: ./Dockerfile  # Atualizado para apontar para o Dockerfile modificado
       args:
         ARG_UID: ${UID:-1000}
         ARG_GID: ${GID:-1000}
@@ -17,9 +17,9 @@ services:
       - SYS_ADMIN
     volumes:
       - "./.env:/app/server/.env"
-      - "../server/storage:/app/server/storage"
-      - "../collector/hotdir/:/app/collector/hotdir"
-      - "../collector/outputs/:/app/collector/outputs"
+      - "./server/storage:/app/server/storage"
+      - "./collector/hotdir:/app/collector/hotdir"
+      - "./collector/outputs:/app/collector/outputs"
     user: "${UID:-1000}:${GID:-1000}"
     ports:
       - "3001:3001"
